@@ -4,6 +4,7 @@
 2.WiFi账密与其余副板的IP需自己填写
 3.供电引脚需用3.3v的，用5v的容易电流过低导致灯不亮（亲身实测）
 4.下面web服务内代码里的中文都可根据个人需求更改，不会对代码功能产生影响
+5.高低电平逻辑变换可通过交换50-51行代码里的HIGH与LOW来更改（注意副板也要更改，更改代码的具体行数请见副板代码）
 */
 #include <ESP8266WiFi.h>
 
@@ -45,7 +46,6 @@ void loop() {
   while(webClient.available()) webClient.read();
 
   bool isCmd = false;
-  // 左"开"→断电(灯灭)，右"关"→通电(灯亮)
   if (req.indexOf("/on1") != -1)  { digitalWrite(relayMain, HIGH);  isCmd = true; }
   if (req.indexOf("/off1") != -1) { digitalWrite(relayMain, LOW); isCmd = true; }
 
